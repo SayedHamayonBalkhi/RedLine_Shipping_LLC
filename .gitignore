@@ -1,0 +1,11 @@
+# Real settings and secrets: never commit these
+config/config.php
+.env
+.env.*
+!.env.example
+
+# Runtime files
+storage/*
+!storage/.gitkeep
+vendor/
+.DS_Store

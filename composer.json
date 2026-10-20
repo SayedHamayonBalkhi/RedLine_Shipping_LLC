@@ -1,0 +1,9 @@
+{
+  "name": "redline-shipping/website",
+  "description": "Redline Shipping LLC website (PHP). Composer is only needed for quote-form email (PHPMailer).",
+  "type": "project",
+  "require": {
+    "php": ">=8.1",
+    "phpmailer/phpmailer": "^6.9"
+  }
+}

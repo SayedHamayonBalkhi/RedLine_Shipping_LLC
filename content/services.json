@@ -1,0 +1,52 @@
+[
+  {
+    "id": "long-haul",
+    "name": "Long-Haul Trucking",
+    "category": "Long-distance freight",
+    "description": "Coast-to-coast capacity for freight with a long way to go, planned carefully and driven safely.",
+    "shortDescription": "Long-distance freight planned carefully from pickup through delivery.",
+    "image": "images/general-trucking.png",
+    "imageAlt": "Red semi-truck traveling on a long-distance highway",
+    "featured": true
+  },
+  {
+    "id": "regional",
+    "name": "Regional Trucking",
+    "category": "Regional routes",
+    "description": "Fast, flexible runs close to home for the shipments that keep your local operation moving.",
+    "shortDescription": "Flexible runs for shipments moving between nearby markets.",
+    "image": "images/regional-trucking.png",
+    "imageAlt": "Truck convoy traveling on a regional route",
+    "featured": true
+  },
+  {
+    "id": "refrigerated",
+    "name": "Refrigerated Trucking",
+    "category": "Temperature controlled",
+    "description": "Temperature-controlled hauling that keeps fresh and sensitive cargo exactly where it needs to be.",
+    "shortDescription": "Temperature-controlled hauling for fresh and sensitive cargo.",
+    "image": "images/refrigerated-trucking.png",
+    "imageAlt": "Refrigerated trailer outside a distribution center",
+    "featured": true
+  },
+  {
+    "id": "expedited",
+    "name": "Expedited Shipping",
+    "category": "Time sensitive",
+    "description": "When the deadline is tomorrow, or today, we prioritize your load and get it moving.",
+    "shortDescription": "Prioritized transportation for time-sensitive shipments.",
+    "image": "images/expedited-shipping.png",
+    "imageAlt": "Freight being loaded into a delivery truck",
+    "featured": true
+  },
+  {
+    "id": "oversized-load",
+    "name": "Oversized Load Transport",
+    "category": "Specialized freight",
+    "description": "Wide, heavy, or awkward loads handled with the right equipment and a carefully planned route.",
+    "shortDescription": "Specialized equipment and route planning for oversized or heavy loads.",
+    "image": "images/oversized-load.jpg",
+    "imageAlt": "Heavy-haul truck carrying oversized equipment",
+    "featured": false
+  }
+]

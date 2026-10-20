@@ -1,0 +1,53 @@
+# Apache rules (works on most shared PHP hosting with mod_rewrite enabled).
+# Nginx users: see "Hosting" in README.md for the equivalent rules.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # If the site lives in a subfolder (e.g. https://example.com/redline/), uncomment and set:
+  # RewriteBase /redline/
+
+  # Force HTTPS once your certificate is active (uncomment):
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Never serve private folders or dotfiles (except /.well-known for certificates).
+  RewriteRule ^(includes|content|config|storage|vendor)(/|$) - [F,L]
+  RewriteRule (^|/)\.(?!well-known) - [F,L]
+
+  # Clean addresses: /services -> services.php  (same addresses as the original site)
+  RewriteRule ^(services|about|contact|terms|privacy|cookies)/?$ $1.php [L]
+  RewriteRule ^robots\.txt$ robots.php [L]
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+</IfModule>
+
+# Friendly "page not found" page. If the site is in a subfolder, change to /redline/404.php.
+ErrorDocument 404 /404.php
+
+# Basic security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+
+# Long browser caching for static files (CSS/JS URLs carry ?v=timestamp, so edits still show up)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

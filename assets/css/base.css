@@ -1,0 +1,179 @@
+/* ==========================================================================
+   base.css  -  design tokens, fonts, reset, and small shared building blocks.
+   Change a brand colour or font HERE and it updates across the whole site.
+   ========================================================================== */
+
+/* ---- Fonts (self-hosted, SIL Open Font License; files in assets/fonts/) ---- */
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/barlow-condensed-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/barlow-condensed-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/barlow-condensed-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 800; font-display: swap; src: url('../fonts/barlow-condensed-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 900; font-display: swap; src: url('../fonts/barlow-condensed-latin-900-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/inter-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/inter-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/inter-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/inter-latin-700-normal.woff2') format('woff2'); }
+
+/* ---- Design tokens ---- */
+:root {
+  /* Brand palette */
+  --redline-red: #D9342B;
+  --red-hover: #bd2d25;
+  --brand-charcoal: #222222;
+  --deep-charcoal: #2D2D2D;
+  --warm-ivory: #F3F1EC;
+  --soft-sand: #E9E6DF;
+  --near-black: #242424;
+  --muted-gray: #666666;
+  --warm-gray: #D8D4CC;
+  --soft-white: #F7F5F0;
+
+  /* Text and lines used on the dark sections */
+  --on-dark-soft: #d1cec7;
+  --line-on-dark: #4b4a47;
+
+  /* Typography */
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Barlow Condensed', Impact, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, monospace;
+
+  --shadow: 0 8px 24px rgba(34, 34, 34, .09);
+  color-scheme: light;
+}
+
+/* ---- Reset (a small, hand-written replacement for the old Tailwind preflight) ---- */
+*, ::after, ::before { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--warm-ivory);
+  color: var(--near-black);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: inherit; }
+b, strong { font-weight: bolder; }
+small { font-size: 80%; }
+img, svg, video, canvas, iframe { display: block; vertical-align: middle; }
+img, video { max-width: 100%; height: auto; }
+button, input, select, textarea {
+  font: inherit;
+  font-feature-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  border-radius: 0;
+  background-color: transparent;
+  opacity: 1;
+}
+button { appearance: button; }
+::placeholder { opacity: 1; }
+textarea { resize: vertical; }
+[hidden] { display: none !important; }
+
+/* ---- Accessibility: visible keyboard focus everywhere ---- */
+:focus-visible { outline: 3px solid var(--redline-red); outline-offset: 3px; }
+a, button, input, select, textarea, [tabindex]:not([tabindex="-1"]) { scroll-margin-block: 100px; }
+
+/* ---- Page shell ---- */
+/* Clips decorative overflow (big "RL" watermark, full-bleed images). */
+.site-shell { overflow: hidden; background: var(--warm-ivory); }
+
+/* Centered page-width wrapper. The max-width steps below are the same ones the original
+   (Tailwind-built) site had, so the content width stays identical at every screen size. */
+.container { width: min(1200px, calc(100% - 56px)); margin-inline: auto; }
+@media (min-width: 40rem) { .container { max-width: 40rem; } }
+@media (min-width: 48rem) { .container { max-width: 48rem; } }
+@media (min-width: 64rem) { .container { max-width: 64rem; } }
+@media (min-width: 80rem) { .container { max-width: 80rem; } }
+@media (min-width: 96rem) { .container { max-width: 96rem; } }
+@media (max-width: 1050px) { .container { width: min(100% - 44px, 900px); } }
+@media (max-width: 760px)  { .container { width: min(100% - 40px, 680px); } }
+@media (max-width: 480px)  { .container { width: calc(100% - 34px); } }
+
+/* Small red-dash label above headings. Colour is set by the section it sits in. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-transform: uppercase;
+  font: 700 11px/1 var(--font-body);
+  letter-spacing: .18em;
+}
+.eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--redline-red); }
+
+/* Buttons: .button (red) and .button.button-outline. The nav "Get a Quote" link shares the style. */
+.nav-quote,
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 21px;
+  background: var(--redline-red);
+  color: var(--soft-white) !important;
+  border: 1px solid var(--redline-red);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: 11px;
+  font-weight: 700;
+}
+.nav-quote:hover,
+.button:hover { background: var(--red-hover); border-color: var(--red-hover); transform: translateY(-1px); }
+.nav-quote { white-space: nowrap; }
+.button-outline { background: transparent; border-color: rgba(247, 245, 240, .62); }
+.button-outline:hover { background: var(--soft-white); border-color: var(--soft-white); color: var(--near-black) !important; }
+
+/* Quiet hover motion shared by links, cards and buttons. */
+.nav-links a, .footer-nav a, .legal-links a, .social-links a, .service-link, .contact-card, .team-card,
+.service-check-row, .faq-question, .faq-question svg, .button, .nav-quote {
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* Fade-in used by the home hero (opacity only, same as the original). */
+.fade-in { animation: enter .7s cubic-bezier(.2, .7, .2, 1) both; }
+.fade-in.delay { animation-delay: .12s; }
+@keyframes enter { 0% { opacity: 0; transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotate(0); filter: blur(0); } }
+
+/* Hidden spam-trap field of the quote form. */
+.quote-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Photo placeholder shown if an image file is missing (see assets/js/main.js). */
+.image-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, var(--brand-charcoal) 0 12px, #383735 12px 13px);
+  color: var(--warm-gray);
+  font: 700 12px var(--font-body);
+  letter-spacing: .18em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

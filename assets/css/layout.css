@@ -1,0 +1,201 @@
+/* ==========================================================================
+   layout.css  -  parts that appear on every page: top bar, header/navigation, footer.
+   ========================================================================== */
+
+/* ---- Top bar ---- */
+.topline { background: var(--brand-charcoal); color: var(--warm-gray); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.topline-inner { height: 34px; display: flex; align-items: center; justify-content: space-between; }
+.topline-email { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+
+/* ---- Header ---- */
+/* Transparent over the hero, ivory once the page is scrolled (class added by assets/js/main.js). */
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  margin-bottom: -76px;
+  background: rgba(20, 20, 20, .34);
+  border-bottom: 1px solid rgba(243, 241, 236, .22);
+  backdrop-filter: blur(12px);
+  transition: background .2s, border-color .2s;
+}
+.header.scrolled { background: rgba(243, 241, 236, .97); border-bottom-color: var(--warm-gray); }
+.nav-inner { height: 76px; display: flex; align-items: center; justify-content: space-between; }
+
+/* Logo */
+.brand { display: flex; align-items: center; width: 114px; min-width: 0; flex: 0 0 auto; text-decoration: none; }
+.brand-logo { display: block; width: 100%; height: 76px; object-fit: contain; border-radius: 4px; }
+.brand-footer { width: 180px; }
+.brand-footer .brand-logo { height: auto; border-radius: 6px; }
+
+/* Navigation links */
+.nav-links { display: flex; align-items: center; gap: 34px; }
+.nav-links a {
+  color: var(--near-black);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.nav-links a:hover,
+.header .nav-links a.active { color: var(--redline-red); }
+.nav-links a.active:not(.nav-quote)::after { content: ''; display: block; height: 2px; background: var(--redline-red); margin-top: 6px; }
+.header:not(.scrolled) .nav-links a { color: var(--soft-white); }
+.header:not(.scrolled) .nav-links .nav-quote { color: var(--soft-white) !important; }
+.header:not(.scrolled) .nav-links a.active { color: var(--soft-white); }
+
+/* Mobile menu button (shown only on small screens, see media query below) */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--warm-gray);
+  color: var(--near-black);
+  background: transparent;
+  cursor: pointer;
+}
+.header:not(.scrolled) .menu-toggle { border-color: rgba(255, 255, 255, .45); color: #fff; }
+
+@media (max-width: 900px) {
+  .nav-quote { padding-inline: 14px; }
+}
+@media (max-width: 1050px) {
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 10px; }
+}
+
+/* Small screens: logo + menu button, links drop down from the header.
+   NOTE: the original site switched the button on at 700px but hid the links at 760px, which left
+   no navigation between 701px and 760px. The button now appears at 760px together with the menu. */
+@media (max-width: 760px) {
+  .header { margin-bottom: -68px; }
+  .menu-toggle { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 18px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-7px);
+    background: var(--warm-ivory);
+    border-bottom: 1px solid transparent;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    box-shadow: 0 15px 20px #0000;
+    transition: max-height .28s ease, opacity .2s ease, transform .28s ease, padding .28s ease, visibility .28s, border-color .2s, box-shadow .2s;
+  }
+  .nav-links.open {
+    max-height: 380px;
+    padding: 12px 18px 20px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    border-bottom-color: var(--warm-gray);
+    box-shadow: 0 16px 24px rgba(34, 34, 34, .13);
+  }
+  .nav-links a { padding: 15px 8px; border-bottom: 1px solid var(--warm-gray); }
+  .nav-links .nav-quote { margin-top: 13px; justify-content: center; border-bottom-color: var(--redline-red); }
+  .nav-links.open a { color: var(--near-black); }
+  .nav-links.open .nav-quote { color: var(--soft-white) !important; }
+  .nav-links.open a.active:not(.nav-quote)::after { display: none; }
+  /* Links keep dark text on the ivory panel even while the header is still transparent. */
+  .header:not(.scrolled) .nav-links.open a { color: #44413d; }
+  .header:not(.scrolled) .nav-links.open a.active:not(.nav-quote) { color: var(--redline-red); }
+  .header:not(.scrolled) .nav-links.open .nav-quote { color: var(--soft-white) !important; }
+}
+@media (max-width: 700px) {
+  .topline-inner { height: 31px; justify-content: center; }
+  .topline-inner > span:first-child { display: none; }
+  .nav-inner { height: 68px; }
+  .brand { width: 102px; }
+  .brand-logo { height: 68px; }
+}
+@media (max-width: 480px) {
+  .topline-email { font-size: 9px; letter-spacing: .045em; }
+}
+
+/* ---- Footer ---- */
+.footer { background: var(--brand-charcoal); color: var(--soft-white); padding: 62px 0 25px; }
+.footer-main { display: grid; grid-template-columns: 1.2fr .9fr .8fr 1.35fr; gap: 60px; padding-bottom: 45px; }
+.footer-brand p { color: #c7c3bc; max-width: 330px; font-size: 13px; line-height: 1.8; margin-top: 19px; }
+.footer-title { color: var(--warm-gray); font: 700 12px var(--font-body); text-transform: uppercase; letter-spacing: .16em; margin: 5px 0 19px; }
+.footer-nav { display: flex; flex-direction: column; gap: 12px; }
+.footer-nav a {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  overflow-wrap: anywhere;
+  color: #e0ddd7;
+  text-decoration: none;
+  font-size: 13px;
+}
+.footer-nav a:hover,
+.footer-contact a:hover { color: var(--redline-red); }
+.footer-contact a svg { flex: 0 0 auto; color: var(--redline-red); margin-top: 1px; }
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid #4a4946;
+  padding-top: 20px;
+  color: #b8b4ad;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.legal-links, .social-links { display: flex; align-items: center; flex-wrap: wrap; }
+.legal-links { gap: 14px 18px; }
+.social-links { gap: 12px; }
+.legal-links a, .social-links a, .social-link-unconfigured { color: #d3d0c9; }
+.legal-links a:hover, .social-links a:hover { color: var(--redline-red); }
+.legal-links a { text-decoration: none; }
+.social-links a, .social-link-unconfigured {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 0;
+  font-size: 13px;
+  text-decoration: none;
+}
+.social-link-unconfigured { opacity: .75; }
+.social-follow { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.social-follow > strong { color: var(--warm-gray); font: 700 11px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
+.social-icon { display: block; width: 20px; height: 20px; flex: 0 0 auto; }
+
+@media (max-width: 1050px) {
+  .footer-main { grid-template-columns: 1.1fr 1fr 1fr; }
+  .footer-main > div:last-child { grid-column: 2 / 4; }
+}
+@media (max-width: 900px) {
+  .footer-main { gap: 30px; }
+}
+@media (max-width: 760px) {
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 31px 20px; }
+  .footer-main > div:last-child { grid-column: 1 / -1; }
+  .footer-bottom { align-items: flex-start; }
+  .social-follow { width: 100%; }
+}
+@media (max-width: 700px) {
+  .footer { padding-top: 48px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; gap: 10px; }
+  .brand-footer { width: 150px; }
+}
+@media (max-width: 480px) {
+  .footer-main { grid-template-columns: 1fr; }
+  .footer-brand, .footer-main > div:last-child { grid-column: auto; }
+  .footer-bottom { gap: 16px; }
+  .social-follow { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .social-links { gap: 9px 17px; }
+}
